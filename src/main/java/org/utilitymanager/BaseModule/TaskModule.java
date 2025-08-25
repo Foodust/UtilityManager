@@ -8,6 +8,10 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * 작업 스케줄링 유틸리티 모듈
+ * Bukkit 스케줄러와 Java 스케줄러를 이용한 작업 관리 기능을 제공합니다.
+ */
 public class TaskModule {
     private final UtilityManager plugin;
 
@@ -40,8 +44,34 @@ public class TaskModule {
             Bukkit.getScheduler().cancelTask(bukkitTask.getTaskId());
     }
 
-    public void runBukkitTaskLater(Runnable task, Long delay, TimeUnit timeUnit) {
+    public BukkitTask runBukkitTaskAsync(Runnable task) {
+        return Bukkit.getScheduler().runTaskAsynchronously(plugin, task);
+    }
+
+    public BukkitTask runBukkitTaskAsyncLater(Runnable task, Long delay) {
+        return Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, task, delay);
+    }
+
+    public BukkitTask runBukkitTaskAsyncTimer(Runnable task, Long delay, Long tick) {
+        return Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, task, delay, tick);
+    }
+
+    public void runScheduledTask(Runnable task, Long delay, TimeUnit timeUnit) {
         ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
-        scheduler.scheduleAtFixedRate(task, 0, delay, timeUnit);
+        scheduler.schedule(task, delay, timeUnit);
+        scheduler.shutdown();
+    }
+
+    public void runScheduledTaskTimer(Runnable task, Long initialDelay, Long period, TimeUnit timeUnit) {
+        ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+        scheduler.scheduleAtFixedRate(task, initialDelay, period, timeUnit);
+    }
+
+    public void cancelAllTasks() {
+        Bukkit.getScheduler().cancelTasks(plugin);
+    }
+
+    public boolean isTaskRunning(BukkitTask task) {
+        return task != null && !task.isCancelled();
     }
 }

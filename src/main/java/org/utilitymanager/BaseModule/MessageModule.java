@@ -13,10 +13,11 @@ import org.utilitymanager.UtilityManager;
 
 import java.time.Duration;
 
-// message 모듈
-// String + String 하기 귀찮아서
-// 그냥 합쳤음
-// 중간에 Josa 는 명사의 조사를 붙이기 위함
+/**
+ * 메시지 처리 유틸리티 모듈
+ * 플레이어에게 메시지, 타이틀, 액션바 전송 및 한국어 조사 처리 기능을 제공합니다.
+ * Adventure 라이브러리를 사용하여 고급 텍스트 포맷팅을 지원합니다.
+ */
 public class MessageModule {
     private final HangulModule hangulModule = new HangulModule();
     private static String prefix = "";
