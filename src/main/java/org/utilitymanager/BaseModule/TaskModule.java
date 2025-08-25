@@ -4,22 +4,44 @@ import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitTask;
 import org.utilitymanager.UtilityManager;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 public class TaskModule {
+    private final UtilityManager plugin;
 
-    public BukkitTask runBukkitTaskLater(Runnable task, Long delay){
-       return Bukkit.getScheduler().runTaskLater(UtilityManager.getPlugin(), task, delay);
-    }
-    public BukkitTask runBukkitTaskLater(Runnable task, double delay){
-        return Bukkit.getScheduler().runTaskLater(UtilityManager.getPlugin(), task, (long)delay);
-    }
-    public BukkitTask runBukkitTaskLater(Runnable task, float delay){
-        return Bukkit.getScheduler().runTaskLater(UtilityManager.getPlugin(), task, (long)delay);
+    public TaskModule(UtilityManager plugin) {
+        this.plugin = plugin;
     }
 
-    public BukkitTask runBukkitTaskTimer(Runnable task, Long delay, Long tick){
-        return Bukkit.getScheduler().runTaskTimer(UtilityManager.getPlugin(), task, delay,tick);
+    public BukkitTask runBukkitTask(Runnable task) {
+        return Bukkit.getScheduler().runTask(plugin, task);
     }
-    public void cancelBukkitTask(BukkitTask bukkitTask){
-        Bukkit.getScheduler().cancelTask(bukkitTask.getTaskId());
+
+    public BukkitTask runBukkitTaskLater(Runnable task, Long delay) {
+        return Bukkit.getScheduler().runTaskLater(plugin, task, delay);
+    }
+
+    public BukkitTask runBukkitTaskLater(Runnable task, double delay) {
+        return Bukkit.getScheduler().runTaskLater(plugin, task, (long) delay);
+    }
+
+    public BukkitTask runBukkitTaskLater(Runnable task, float delay) {
+        return Bukkit.getScheduler().runTaskLater(plugin, task, (long) delay);
+    }
+
+    public BukkitTask runBukkitTaskTimer(Runnable task, Long delay, Long tick) {
+        return Bukkit.getScheduler().runTaskTimer(plugin, task, delay, tick);
+    }
+
+    public void cancelBukkitTask(BukkitTask bukkitTask) {
+        if (bukkitTask != null)
+            Bukkit.getScheduler().cancelTask(bukkitTask.getTaskId());
+    }
+
+    public void runBukkitTaskLater(Runnable task, Long delay, TimeUnit timeUnit) {
+        ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+        scheduler.scheduleAtFixedRate(task, 0, delay, timeUnit);
     }
 }

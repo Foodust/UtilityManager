@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(/C:\\Users\\USER\\Desktop\\intellij\\HateFarmPlugin/**)",
+      "Read(/C:\\Users\\USER\\Desktop\\intellij\\HateFarmPlugin\\src\\main\\java\\org\\foodust\\hateFarmPlugin\\command/**)",
+      "Read(/C:\\Users\\USER\\Desktop\\intellij\\HateFarmPlugin\\src\\main\\java\\org\\foodust\\hateFarmPlugin\\message/**)",
+      "Read(/C:\\Users\\USER\\Desktop\\intellij\\HateFarmPlugin\\src\\main\\java\\org\\foodust\\hateFarmPlugin\\command/**)",
+      "Read(/C:\\Users\\USER\\Desktop\\intellij\\HateFarmPlugin/**)",
+      "Bash(gradlew:*)",
+      "Bash(./gradlew:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
