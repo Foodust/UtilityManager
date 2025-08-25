@@ -28,7 +28,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.YOUR_USERNAME:UtilityManager:VERSION'
+    implementation 'com.github.Foodust:UtilityManager:VERSION'
 }
 ```
 
@@ -42,7 +42,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.github.YOUR_USERNAME:UtilityManager:VERSION")
+    implementation("com.github.Foodust:UtilityManager:VERSION")
 }
 ```
 
