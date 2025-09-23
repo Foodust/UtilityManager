@@ -1,4 +1,4 @@
-package org.utilitymanager.BaseModule;
+package org.foodust.utilitymanager.BaseModule;
 
 import org.bukkit.Location;
 import org.bukkit.Material;

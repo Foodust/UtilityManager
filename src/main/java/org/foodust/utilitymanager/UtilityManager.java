@@ -1,4 +1,4 @@
-package org.utilitymanager;
+package org.foodust.utilitymanager;
 
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bukkit.Bukkit;

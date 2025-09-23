@@ -1,4 +1,4 @@
-package org.utilitymanager.BaseModule;
+package org.foodust.utilitymanager.BaseModule;
 
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
@@ -9,7 +9,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.utilitymanager.UtilityManager;
+import org.foodust.utilitymanager.UtilityManager;
 
 import java.time.Duration;
 

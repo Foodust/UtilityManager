@@ -1,4 +1,4 @@
-package org.utilitymanager.BaseModule;
+package org.foodust.utilitymanager.BaseModule;
 
 /**
  * 한글 관련 유틸리티 모듈

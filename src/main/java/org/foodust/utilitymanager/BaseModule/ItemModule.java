@@ -1,4 +1,4 @@
-package org.utilitymanager.BaseModule;
+package org.foodust.utilitymanager.BaseModule;
 
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;

@@ -1,4 +1,4 @@
-package org.utilitymanager.Data;
+package org.foodust.utilitymanager.Data;
 
 // Tick Data 핸들링하기
 public class TickData {

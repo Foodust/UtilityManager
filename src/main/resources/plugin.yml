@@ -1,6 +1,6 @@
 name: UtilityManager
 version: '${version}'
-main: org.utilitymanager.UtilityManager
+main: org.foodust.utilitymanager.UtilityManager
 api-version: '1.21'
 libraries:
   - "net.kyori:adventure-api:4.17.0"

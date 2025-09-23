@@ -1,9 +1,10 @@
 plugins {
     id 'java-library'
     id 'maven-publish'
+    id("xyz.jpenilla.run-paper") version "2.3.1"
 }
 
-group = 'org.utilitymanager'
+group = 'org.foodust.utilitymanager'
 version = '1.0.0'
 
 repositories {
@@ -50,40 +51,38 @@ tasks.withType(JavaCompile).configureEach {
     }
 }
 
-// Maven publishing configuration
+
 publishing {
     publications {
         maven(MavenPublication) {
             from components.java
-            
+
+            groupId = 'org.foodust'
+            artifactId = 'utilitymanager'
+            version = project.version
+
             pom {
                 name = 'UtilityManager'
-                description = 'A comprehensive utility library for Minecraft plugin development'
-                url = 'https://github.com/Foodust/UtilityManager'
-                
-                licenses {
-                    license {
-                        name = 'MIT License'
-                        url = 'https://opensource.org/licenses/MIT'
+                description = 'A Spigot/Paper Utility Manager plugin'
+
+                withXml {
+                    def dependenciesNode = asNode().appendNode('dependencies')
+
+                    configurations.compileOnly.allDependencies.each {
+                        if (it.group != null && it.name != null && it.version != null) {
+                            def dependencyNode = dependenciesNode.appendNode('dependency')
+                            dependencyNode.appendNode('groupId', it.group)
+                            dependencyNode.appendNode('artifactId', it.name)
+                            dependencyNode.appendNode('version', it.version)
+                            dependencyNode.appendNode('scope', 'provided')
+                        }
                     }
-                }
-                
-                developers {
-                    developer {
-                        id = 'utilitymanager'
-                        name = 'Foodust'
-                    }
-                }
-                
-                scm {
-                    connection = 'scm:git:git://github.com/Foodust/UtilityManager.git'
-                    developerConnection = 'scm:git:ssh://github.com:Foodust/UtilityManager.git'
-                    url = 'https://github.com/Foodust/UtilityManager/tree/main'
                 }
             }
         }
     }
 }
+
 
 // Source jar for better IDE support
 java {
