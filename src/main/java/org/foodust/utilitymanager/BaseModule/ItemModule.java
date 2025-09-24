@@ -101,7 +101,7 @@ public class ItemModule {
         ItemStack item = new ItemStack(material == Material.AIR ? Material.ROTTEN_FLESH : material, amount);
 
         // 메타 정보가 하나라도 있으면 설정
-        if (title != null || (lore != null && !lore.isEmpty()) || customModelData != null) {
+        if (title != null || (lore != null && !lore.isEmpty()) || (customModelData != null && customModelData > 0)) {
             ItemMeta itemMeta = item.getItemMeta();
             if (itemMeta != null) {
                 if (title != null) {
