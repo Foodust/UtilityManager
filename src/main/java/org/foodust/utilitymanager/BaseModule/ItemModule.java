@@ -64,8 +64,7 @@ public class ItemModule {
      * @param amount 개수
      * @return 생성된 ItemStack
      */
-    public ItemStack createCustomItem(Material material, String title, List<String> lore, 
-                                    Integer customModelData, Integer amount) {
+    public ItemStack createCustomItem(Material material, String title, List<String> lore, Integer customModelData, Integer amount) {
         return createItemWithMeta(material, amount, title, lore, customModelData);
     }
 
@@ -107,7 +106,7 @@ public class ItemModule {
                 if (lore != null) {
                     itemMeta.setLore(lore);
                 }
-                if (customModelData != null) {
+                if (customModelData != null && customModelData > 0) {
                     itemMeta.setCustomModelData(customModelData);
                 }
                 item.setItemMeta(itemMeta);
