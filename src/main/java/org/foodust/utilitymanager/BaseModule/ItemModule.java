@@ -11,18 +11,22 @@ import java.util.List;
  * Bukkit ItemStack 생성, 비교, 검증 등의 기능을 제공합니다.
  */
 public class ItemModule {
-    
-    /** 에러 상황에서 사용할 기본 아이템 - 흰색 양털 */
+
+    /**
+     * 에러 상황에서 사용할 기본 아이템 - 흰색 양털
+     */
     public final String ERROR_WOOL = Material.WHITE_WOOL.name();
-    
-    /** 에러 상황에서 사용할 기본 아이템 - 썩은 살점 */
+
+    /**
+     * 에러 상황에서 사용할 기본 아이템 - 썩은 살점
+     */
     public final String ERROR_ROTTEN = Material.ROTTEN_FLESH.name();
 
     /**
      * 기본 아이템을 생성합니다.
-     * 
+     *
      * @param material 아이템 재료
-     * @param amount 개수
+     * @param amount   개수
      * @return 생성된 ItemStack
      */
     public ItemStack createItem(Material material, Integer amount) {
@@ -31,10 +35,10 @@ public class ItemModule {
 
     /**
      * 이름이 있는 아이템을 생성합니다.
-     * 
+     *
      * @param material 아이템 재료
-     * @param title 아이템 이름
-     * @param amount 개수
+     * @param title    아이템 이름
+     * @param amount   개수
      * @return 생성된 ItemStack
      */
     public ItemStack createItem(Material material, String title, Integer amount) {
@@ -43,11 +47,11 @@ public class ItemModule {
 
     /**
      * 이름과 설명이 있는 아이템을 생성합니다.
-     * 
+     *
      * @param material 아이템 재료
-     * @param title 아이템 이름
-     * @param lore 아이템 설명 (여러 줄)
-     * @param amount 개수
+     * @param title    아이템 이름
+     * @param lore     아이템 설명 (여러 줄)
+     * @param amount   개수
      * @return 생성된 ItemStack
      */
     public ItemStack createItem(Material material, String title, List<String> lore, Integer amount) {
@@ -56,12 +60,12 @@ public class ItemModule {
 
     /**
      * CustomModelData가 있는 커스텀 아이템을 생성합니다.
-     * 
-     * @param material 아이템 재료
-     * @param title 아이템 이름
-     * @param lore 아이템 설명 (여러 줄)
+     *
+     * @param material        아이템 재료
+     * @param title           아이템 이름
+     * @param lore            아이템 설명 (여러 줄)
      * @param customModelData 커스텀 모델 데이터
-     * @param amount 개수
+     * @param amount          개수
      * @return 생성된 ItemStack
      */
     public ItemStack createCustomItem(Material material, String title, List<String> lore, Integer customModelData, Integer amount) {
@@ -70,11 +74,11 @@ public class ItemModule {
 
     /**
      * CustomModelData가 있는 커스텀 아이템을 생성합니다 (설명 없음).
-     * 
-     * @param material 아이템 재료
-     * @param title 아이템 이름
+     *
+     * @param material        아이템 재료
+     * @param title           아이템 이름
      * @param customModelData 커스텀 모델 데이터
-     * @param amount 개수
+     * @param amount          개수
      * @return 생성된 ItemStack
      */
     public ItemStack createCustomItem(Material material, String title, Integer customModelData, Integer amount) {
@@ -83,27 +87,27 @@ public class ItemModule {
 
     /**
      * 메타 정보와 함께 아이템을 생성하는 내부 메서드
-     * 
-     * @param material 아이템 재료
-     * @param amount 개수
-     * @param title 아이템 이름 (선택사항)
-     * @param lore 아이템 설명 (선택사항)
+     *
+     * @param material        아이템 재료
+     * @param amount          개수
+     * @param title           아이템 이름 (선택사항)
+     * @param lore            아이템 설명 (선택사항)
      * @param customModelData 커스텀 모델 데이터 (선택사항)
      * @return 생성된 ItemStack
      */
-    private ItemStack createItemWithMeta(Material material, Integer amount, String title, 
-                                       List<String> lore, Integer customModelData) {
+    private ItemStack createItemWithMeta(Material material, Integer amount, String title,
+                                         List<String> lore, Integer customModelData) {
         // AIR 타입인 경우 임시로 다른 재료 사용
         ItemStack item = new ItemStack(material == Material.AIR ? Material.ROTTEN_FLESH : material, amount);
-        
+
         // 메타 정보가 하나라도 있으면 설정
-        if (title != null || lore != null || customModelData != null) {
+        if (title != null || (lore != null && !lore.isEmpty()) || customModelData != null) {
             ItemMeta itemMeta = item.getItemMeta();
             if (itemMeta != null) {
                 if (title != null) {
                     itemMeta.setDisplayName(title);
                 }
-                if (lore != null) {
+                if (lore != null && !lore.isEmpty()) {
                     itemMeta.setLore(lore);
                 }
                 if (customModelData != null && customModelData > 0) {
@@ -112,12 +116,12 @@ public class ItemModule {
                 item.setItemMeta(itemMeta);
             }
         }
-        
+
         // 원래 AIR였다면 다시 AIR로 변경
         if (material == Material.AIR) {
             item.setType(Material.AIR);
         }
-        
+
         return item;
     }
 
@@ -169,7 +173,7 @@ public class ItemModule {
 
         // 둘 다 CustomModelData가 있으면 값과 재료 타입 비교
         return meta1.getCustomModelData() == meta2.getCustomModelData() &&
-               item1.getType() == item2.getType();
+                item1.getType() == item2.getType();
     }
 
     /**
@@ -208,15 +212,15 @@ public class ItemModule {
 
         // 모든 메타 정보 비교 (표시 이름, 설명, CustomModelData)
         return java.util.Objects.equals(meta1.getDisplayName(), meta2.getDisplayName()) &&
-               java.util.Objects.equals(meta1.getLore(), meta2.getLore()) &&
-               meta1.hasCustomModelData() == meta2.hasCustomModelData() &&
-               (!meta1.hasCustomModelData() || 
-                meta1.getCustomModelData()==meta2.getCustomModelData());
+                java.util.Objects.equals(meta1.getLore(), meta2.getLore()) &&
+                meta1.hasCustomModelData() == meta2.hasCustomModelData() &&
+                (!meta1.hasCustomModelData() ||
+                        meta1.getCustomModelData() == meta2.getCustomModelData());
     }
 
     /**
      * 문자열이 유효한 Material 이름인지 확인합니다.
-     * 
+     *
      * @param materialName 확인할 Material 이름
      * @return 유효한 Material이면 true, 아니면 false
      */
@@ -234,7 +238,7 @@ public class ItemModule {
 
     /**
      * 아이템을 복사합니다.
-     * 
+     *
      * @param original 복사할 원본 아이템
      * @return 복사된 아이템 (원본이 null이면 null 반환)
      */
@@ -244,18 +248,18 @@ public class ItemModule {
 
     /**
      * 아이템이 CustomModelData를 가지고 있는지 확인합니다.
-     * 
+     *
      * @param item 확인할 아이템
      * @return CustomModelData가 있으면 true, 아니면 false
      */
     public boolean hasCustomModelData(ItemStack item) {
-        return item != null && item.hasItemMeta() && 
-               item.getItemMeta() != null && item.getItemMeta().hasCustomModelData();
+        return item != null && item.hasItemMeta() &&
+                item.getItemMeta() != null && item.getItemMeta().hasCustomModelData();
     }
 
     /**
      * 아이템의 CustomModelData 값을 가져옵니다.
-     * 
+     *
      * @param item 확인할 아이템
      * @return CustomModelData 값 (없으면 null)
      */
@@ -269,7 +273,7 @@ public class ItemModule {
     /**
      * 아이템이 비어있는지 확인합니다.
      * null, AIR 타입, 또는 개수가 0 이하인 경우 비어있다고 판단합니다.
-     * 
+     *
      * @param item 확인할 아이템
      * @return 비어있으면 true, 아니면 false
      */
@@ -279,7 +283,7 @@ public class ItemModule {
 
     /**
      * 두 아이템이 같은 타입인지 확인합니다.
-     * 
+     *
      * @param item1 첫 번째 아이템
      * @param item2 두 번째 아이템
      * @return 같은 타입이면 true, 아니면 false
@@ -294,7 +298,7 @@ public class ItemModule {
     /**
      * 아이템이 유효한지 확인합니다.
      * null이 아니고, AIR이 아니며, 개수가 1개 이상인 경우 유효하다고 판단합니다.
-     * 
+     *
      * @param item 확인할 아이템
      * @return 유효하면 true, 아니면 false
      */
